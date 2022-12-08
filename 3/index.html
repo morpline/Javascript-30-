@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="english">
+    <head>
+        <meta charset="utf-8">
+        <title>Scoped CSS Variables and JS</title>
+    </head>
+    <body>
+        <div class="galleryheader" style="height:0">
+            <h1 class="importTitle"></h1>
+        </div>
+        <div class="controls">
+            <label for="spacing">Spacing:</label>
+            <input type="range" name="spacing" id="spacing" min="10" max="200" value="100">
+            <label for="blur">Blur:</label>
+            <input type="range" name="blur" id="blur" min="0" max="25" value="10">
+            <label for="base">Color:</label>
+            <input type="color" name="base" id="base" value="#ffc600">
+        </div>
+        <img src="../3/Ririe_impressionistic_sheep_in_wheat_field_painting_269f43b1-79b0-4dcd-acf0-2b4001a6e6e3.png" alt="Ririe_impressionistic_sheep_in_wheat_field_painting_269f43b1-79b0-4dcd-acf0-2b4001a6e6e3">
+        <style>
+            :root {
+                --base: #ffc600;
+                --spacing: 20px;
+                --blur: 10px;
+            }
+            img {
+                padding: var(--spacing);
+                background: var(--base);
+                filter: blur(var(--blur));
+            }
+            .h1{
+                color: var(--base);
+            }
+            body{
+                text-align: center;
+
+            }
+            body{
+                background: #193549;
+                color: white;
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: 100;
+                font-size: 50px;
+            }
+            .controls{
+                margin-bottom: 50px;
+            }
+            a {
+                color: var(--base);
+                text-decoration: none;
+            }
+
+            input{
+                width: 100px;
+            }
+        </style>
+        <script>
+            const inputs = document.querySelectorAll('.controls input');
+            function handleUpdate (input) {
+                console.log("change event");
+
+                
+                
+                if(input.name != "base"){
+
+                    document.documentElement.style.setProperty(`--${input.name}`,input.value+'px');
+                    //document.style.setProperty(`--${input.name}`,input.value+'px');
+                } else {
+                    document.documentElement.style.setProperty(`--${input.name}`,input.value);
+                    //document.style.setProperty(`--${input.name}`,input.value);
+                }
+            }
+            // inputs.forEach((input,index) => addEventListener('change',handleUpdate(input)));
+            // inputs.forEach((input,index) => addEventListener('change',console.log("messagse")));
+            // inputs.forEach((input,index) => addEventListener('mousemove',handleUpdateMouse(input)));
+            // inputs.forEach((input,index) => addEventListener('mousemove',console.log("messagse")));
+            var t = setInterval( () => {
+                inputs.forEach((input) => {handleUpdate(input)})
+            });
+        </script>
+    </body>
+</html>

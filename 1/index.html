@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>JS Drum Kit</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="galleryheader" style="height:0">
+            <h1 class="importTitle"></h1>
+        </div>
+        <div class="keys">
+            <div data-key="65" class="key">
+                <kbd>a</kbd>
+                <span class="sound">snare</span>
+            </div>
+            <div data-key="83" class="key">
+                <kbd>s</kbd>
+                <span class="sound">hihat</span>
+            </div>
+            <div data-key="68" class="key">
+                <kbd>d</kbd>
+                <span class="sound">clank</span>
+            </div>
+            <div data-key="70" class="key">
+                <kbd>f</kbd>
+                <span class="sound">crunch</span>
+            </div>
+            <div data-key="71" class="key">
+                <kbd>g</kbd>
+                <span class="sound">openhat</span>
+            </div>
+            <div data-key="72" class="key">
+                <kbd>h</kbd>
+                <span class="sound">kick</span>
+            </div>
+            <div data-key="74" class="key">
+                <kbd>j</kbd>
+                <span class="sound">brushhit</span>
+            </div>
+            <div data-key="75" class="key">
+                <kbd>k</kbd>
+                <span class="sound">timp</span>
+            </div>
+            <div data-key="76" class="key">
+                <kbd>l</kbd>
+                <span class="sound">lowcrunch</span>
+            </div>
+            
+        </div>
+        <audio data-key="65"src="sounds/snare.wav"></audio>
+        <audio data-key="83"src="sounds/synth_Snare.wav"></audio>
+        <audio data-key="68"src="sounds/clank.wav"></audio>
+        <audio data-key="70"src="sounds/crunch.wav"></audio>
+        <audio data-key="71"src="sounds/hihat.wav"></audio>
+        <audio data-key="72"src="sounds/kcik.wav"></audio>
+        <audio data-key="74"src="sounds/SHhit.wav"></audio>
+        <audio data-key="75"src="sounds/timp_high.wav"></audio>
+        <audio data-key="76"src="sounds/lowCrunch.wav"></audio>
+        
+        <script>
+            function playsound (e) {
+                const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+                if(!audio) return;
+                console.log("yes");
+                audio.currentTime=0;
+                audio.play();
+                key.classList.add("playing");
+            }
+            
+            window.addEventListener('keydown', playsound); 
+            function removeTransition (e) {
+                if(e.propertyName !== "transform") return;
+                this.classList.remove("playing");
+            }
+            
+            const keys = document.querySelectorAll(".key");
+            keys.forEach(key => key.addEventListener("transitionend", removeTransition))
+        </script>
+    </body>
+</html>
